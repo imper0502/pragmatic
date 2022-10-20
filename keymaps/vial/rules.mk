@@ -1,0 +1,9 @@
+TAP_DANCE_ENABLE = no
+
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
+VIAL_INSECURE = yes
+LTO_ENABLE = yes
+COMMAND_ENABLE = yes
+
+EXTRAFLAGS += -flto

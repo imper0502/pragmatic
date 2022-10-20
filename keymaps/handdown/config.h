@@ -1,0 +1,8 @@
+#pragma once
+
+#define TAPPING_TERM 350
+#define TAPPING_TERM_PER_KEY
+#define TAPPING_FORCE_HOLD_PER_KEY
+
+#define ONESHOT_TAP_TOGGLE 3
+#define ONESHOT_TIMEOUT 5000
