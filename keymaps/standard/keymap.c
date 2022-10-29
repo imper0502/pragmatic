@@ -21,16 +21,14 @@ enum layer_names {
 };
 
 enum tap_dance_names {
-    BACKSPACE_BACKWORD,
     COPY_PASTE_FNLOCK_SCREENSHOT,
     INSERT_SCREENSHOT_NUMPAD
 };
+#define CPY_PST TD(COPY_PASTE_FNLOCK_SCREENSHOT)
+#define INS_SHT TD(INSERT_SCREENSHOT_NUMPAD)
 
 /* Key Override */
 const key_override_t arterisk_override = ko_make_basic(MOD_MASK_SHIFT, KC_ASTERISK, KC_CIRCUMFLEX); // *^
-const key_override_t at_override = ko_make_basic(MOD_MASK_SHIFT, KC_AT, KC_DOLLAR);                 // @$
-const key_override_t hash_override = ko_make_basic(MOD_MASK_SHIFT, KC_HASH, KC_DOLLAR);             // #$
-const key_override_t ampersand_override = ko_make_basic(MOD_MASK_SHIFT, KC_AMPERSAND, KC_DOLLAR);   // &$
 const key_override_t slash_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLASH, KC_PERCENT);          // /%
 const key_override_t left_paren_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_PAREN, KC_RIGHT_PAREN);
 const key_override_t left_bracket_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRACKET, KC_RBRACKET);
@@ -42,9 +40,6 @@ const key_override_t dot_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COL
 
 const key_override_t **key_overrides = (const key_override_t *[]) {
     &arterisk_override,
-    &at_override,
-    &hash_override,
-    &ampersand_override,
     &slash_override,
     &left_paren_override,
     &left_bracket_override,
@@ -56,9 +51,6 @@ const key_override_t **key_overrides = (const key_override_t *[]) {
     NULL // Null terminate the array of overrides!
 };
 
-#define TD_BSPC TD(BACKSPACE_BACKWORD)
-#define CPY_PST TD(COPY_PASTE_FNLOCK_SCREENSHOT)
-#define INS_SHT TD(INSERT_SCREENSHOT_NUMPAD)
 #define GUI_ESC LGUI_T(KC_ESC)
 #define GUI_ENT LGUI_T(KC_ENT)
 #define OS_LSFT OSM(MOD_LSFT)
@@ -66,25 +58,23 @@ const key_override_t **key_overrides = (const key_override_t *[]) {
 #define FN_SPC  LT(_FN, KC_SPC)
 #define FN_MINS LT(_BS, KC_MINS)
 #define FN_EQL  LT(_BS, KC_EQL)
-#define FN_RCTL LM(_FN, MOD_RCTL)
-#define FN_RALT LM(_FN, MOD_RALT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BS] = LAYOUT(
-        KC_QUES, CPY_PST, CPY_PST, CPY_PST, TD_BSPC, TD_BSPC,     GUI_ENT, GUI_ENT, INS_SHT, INS_SHT, INS_SHT, KC_GRV ,
-        KC_SLSH, KC_B   , KC_G   , KC_V   , OS_LSFT, OS_LSFT,     FN_SPC , FN_SPC , KC_K   , KC_M   , KC_J   , KC_BSLS,
-        KC_AMPR, KC_P   , KC_T   , KC_D   , KC_LCTL, KC_LCTL,     FN_MINS, FN_MINS, KC_H   , KC_N   , KC_L   , KC_LPRN,
-        KC_HASH, KC_F   , KC_S   , KC_C   , KC_LALT, KC_LALT,     FN_EQL , FN_EQL , KC_COMM, KC_E   , KC_U   , KC_LBRC,
-        KC_AT  , KC_W   , KC_R   , KC_X   , XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_DOT , KC_I   , KC_Y   , KC_LCBR,
-        KC_ASTR, KC_Q   , KC_A   , KC_Z   , XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_QUOT, KC_O   , KC_MINS, KC_LABK
+        KC_F6  , KC_QUES, KC_QUES, CPY_PST, CPY_PST, KC_BSPC,     GUI_ENT, INS_SHT, INS_SHT, KC_BSLS, KC_BSLS, KC_F7  ,
+        KC_F5  , KC_AMPR, KC_B   , KC_G   , KC_V   , OS_LSFT,     FN_SPC , KC_K   , KC_M   , KC_J   , KC_GRV , KC_F8  ,
+        KC_F4  , KC_DLR , KC_P   , KC_T   , KC_D   , KC_LCTL,     FN_MINS, KC_H   , KC_N   , KC_L   , KC_LPRN, KC_F9  ,
+        KC_F3  , KC_HASH, KC_F   , KC_S   , KC_C   , KC_LALT,     FN_EQL , KC_COMM, KC_E   , KC_U   , KC_LBRC, KC_F10 ,
+        KC_F2  , KC_AT  , KC_W   , KC_R   , KC_X   , XXXXXXX,     XXXXXXX, KC_DOT , KC_I   , KC_Y   , KC_LCBR, KC_F11 ,
+        KC_F1  , KC_ASTR, KC_Q   , KC_A   , KC_Z   , XXXXXXX,     XXXXXXX, KC_QUOT, KC_O   , KC_SLSH, KC_LABK, KC_F12
     ),
     [_FN] = LAYOUT(
-        KC_F6  , _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, KC_F7  ,
-        KC_F5  , KC_PAST, KC_PSLS, KC_PERC, KC_PENT, KC_PENT,     _______, _______, _______, _______, _______, KC_F8  ,
-        KC_F4  , KC_9   , KC_6   , KC_3   , KC_0   , KC_0   ,     _______, _______, _______, KC_LEFT, KC_HOME, KC_F9  ,
-        KC_F3  , KC_8   , KC_5   , KC_2   , KC_DOT , KC_DOT ,     _______, _______, _______, KC_DOWN, KC_UP  , KC_F10 ,
-        KC_F2  , KC_7   , KC_4   , KC_1   , XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, _______, KC_RGHT, KC_END , KC_F11 ,
-        KC_F1  , KC_TAB , GUI_ESC, KC_LSFT, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, _______, KC_PGDN, KC_PGUP, KC_F12  
+        _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
+        _______, _______, KC_PAST, KC_PSLS, KC_PERC, KC_PENT,     _______, _______, KC_PGDN, KC_PGUP, _______, _______,
+        _______, _______, KC_9   , KC_6   , KC_3   , KC_0   ,     _______, _______, KC_LEFT, KC_HOME, _______, _______,
+        _______, _______, KC_8   , KC_5   , KC_2   , KC_DOT ,     _______, _______, KC_DOWN, KC_UP  , _______, _______,
+        _______, _______, KC_7   , KC_4   , KC_1   , XXXXXXX,     XXXXXXX, _______, KC_RGHT, KC_END , _______, _______,
+        _______, _______, KC_TAB , GUI_ESC, KC_LSFT, XXXXXXX,     XXXXXXX, _______, _______, _______, _______, _______
     )
 };
 
@@ -137,6 +127,8 @@ void matrix_scan_user(void) {
 // Override configuration for specified key
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+    case GUI_ENT:
+        return TAPPING_TERM + 50;
     case FN_SPC:
         return TAPPING_TERM - 50;
     case CPY_PST:
@@ -149,8 +141,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
     case FN_SPC :
-    case FN_RCTL:
-    case FN_RALT:
         return true;
     default:
         return false;
@@ -161,22 +151,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT(_BS,KC_MINS):
             if (!record->tap.count && record->event.pressed) {
-                add_mods(MOD_RCTL);
+                register_mods(MOD_LCTL);
                 layer_on(_FN);
                 return false;
             } else {
                 layer_off(_FN);
-                del_mods(MOD_RCTL);
+                unregister_mods(MOD_LCTL);
             }
+            break;
         case LT(_BS,KC_EQL):
-            if(!record->tap.count && record->event.pressed) {
-                add_mods(MOD_RALT);
+            if (!record->tap.count && record->event.pressed) {
+                register_mods(MOD_LALT);
                 layer_on(_FN);
                 return false;
             } else {
                 layer_off(_FN);
-                del_mods(MOD_RALT);
+                unregister_mods(MOD_LALT);
             }
+            break;
     }
     return true;
 }
@@ -201,13 +193,12 @@ void td_insert_screenshot_finished(qk_tap_dance_state_t *state, void *user_data)
 void td_insert_screenshot_reset(qk_tap_dance_state_t *state, void *user_data);
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-    [BACKSPACE_BACKWORD] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, C(KC_BSPC)),
-    [COPY_PASTE_FNLOCK_SCREENSHOT] = 
+    [COPY_PASTE_FNLOCK_SCREENSHOT] =
             ACTION_TAP_DANCE_FN_ADVANCED(
                     NULL,
                     td_copy_paste_finished,
                     td_copy_paste_reset),
-    [INSERT_SCREENSHOT_NUMPAD] = 
+    [INSERT_SCREENSHOT_NUMPAD] =
             ACTION_TAP_DANCE_FN_ADVANCED(
                     NULL,
                     td_insert_screenshot_finished,
@@ -215,10 +206,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 typedef enum {
-    SINGLE_TAP,  SINGLE_HOLD,
-      DUAL_TAP, TAP_AND_HOLD,
-    TRIPLE_TAP, TAP_TAP_HOLD,
-      QUAD_TAP, TRI_TAP_HOLD,
+     SINGLE_HOLD, SINGLE_TAP,
+    TAP_AND_HOLD,   DUAL_TAP,
+    TAP_TAP_HOLD, TRIPLE_TAP,
+    TRI_TAP_HOLD,   QUAD_TAP,
      OTHERWISE
 } td_state_t;
 
