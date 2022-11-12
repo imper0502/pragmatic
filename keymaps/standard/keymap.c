@@ -28,7 +28,7 @@ enum tap_dance_names {
 #define INS_SHT TD(INSERT_SCREENSHOT_NUMPAD)
 
 const key_override_t arterisk_override = ko_make_basic(MOD_MASK_SHIFT, KC_ASTERISK, KC_CIRCUMFLEX); // *^
-const key_override_t slash_overrivve = ko_make_basic(MOD_MASK_SHIFT, KC_SLASH, KC_PERCENT);          // /%
+const key_override_t slash_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLASH, KC_PERCENT);          // /%
 const key_override_t left_paren_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_PAREN, KC_RIGHT_PAREN);
 const key_override_t left_bracket_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRACKET, KC_RBRACKET);
 const key_override_t left_curly_bracket_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE);
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F1  , KC_ASTR, KC_Q   , KC_A   , KC_Z   , XXXXXXX,     XXXXXXX, KC_QUOT, KC_O   , KC_SLSH, KC_LABK, KC_F12
     ),
     [_FN] = LAYOUT(
-        _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
+        _______, XXXXXXX, _______, _______, _______, _______,     _______, _______, _______, _______, XXXXXXX, _______,
         _______, _______, KC_PAST, KC_PSLS, KC_PERC, KC_PENT,     _______, _______, _______, _______, _______, _______,
         _______, _______, KC_9   , KC_6   , KC_3   , KC_0   ,     _______, _______, KC_LEFT, KC_HOME, _______, _______,
         _______, _______, KC_8   , KC_5   , KC_2   , KC_DOT ,     _______, _______, KC_DOWN, KC_UP  , _______, _______,
