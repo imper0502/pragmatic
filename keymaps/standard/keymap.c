@@ -60,12 +60,12 @@ const key_override_t **key_overrides = (const key_override_t *[]) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BS] = LAYOUT(
-        KC_F6  , KC_QUES, CPY_PST, CPY_PST, CPY_PST, KC_BSPC,     GUI_ENT, INS_SHT, INS_SHT, INS_SHT, KC_GRV , KC_F7  ,
-        KC_F5  , KC_AMPR, KC_B   , KC_G   , KC_V   , OS_LSFT,     FN_SPC , KC_K   , KC_M   , KC_J   , KC_LPRN, KC_F8  ,
-        KC_F4  , KC_DLR , KC_P   , KC_T   , KC_D   , KC_LCTL,     FN_MINS, KC_H   , KC_N   , KC_L   , KC_LBRC, KC_F9  ,
-        KC_F3  , KC_HASH, KC_F   , KC_S   , KC_C   , KC_LALT,     FN_EQL , KC_COMM, KC_E   , KC_U   , KC_LCBR, KC_F10 ,
-        KC_F2  , KC_AT  , KC_W   , KC_R   , KC_X   , XXXXXXX,     XXXXXXX, KC_DOT , KC_I   , KC_Y   , KC_LABK, KC_F11 ,
-        KC_F1  , KC_ASTR, KC_Q   , KC_A   , KC_Z   , XXXXXXX,     XXXXXXX, KC_QUOT, KC_O   , KC_SLSH, KC_BSLS, KC_F12
+        KC_F6  , XXXXXXX, KC_QUES, CPY_PST, CPY_PST, KC_BSPC,     GUI_ENT, INS_SHT, INS_SHT, KC_BSLS, XXXXXXX, KC_F7  ,
+        KC_F5  , KC_AMPR, KC_B   , KC_G   , KC_V   , OS_LSFT,     FN_SPC , KC_K   , KC_M   , KC_J   , KC_GRV , KC_F8  ,
+        KC_F4  , KC_DLR , KC_P   , KC_T   , KC_D   , KC_LCTL,     FN_MINS, KC_H   , KC_N   , KC_L   , KC_LPRN, KC_F9  ,
+        KC_F3  , KC_HASH, KC_F   , KC_S   , KC_C   , KC_LALT,     FN_EQL , KC_COMM, KC_E   , KC_U   , KC_LBRC, KC_F10 ,
+        KC_F2  , KC_AT  , KC_W   , KC_R   , KC_X   , XXXXXXX,     XXXXXXX, KC_DOT , KC_I   , KC_Y   , KC_LCBR, KC_F11 ,
+        KC_F1  , KC_ASTR, KC_Q   , KC_A   , KC_Z   , XXXXXXX,     XXXXXXX, KC_QUOT, KC_O   , KC_SLSH, KC_LABK, KC_F12
     ),
     [_FN] = LAYOUT(
         _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
