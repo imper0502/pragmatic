@@ -258,8 +258,8 @@ void td_alt_layers_reset(qk_tap_dance_state_t *state, void *user_data) {
 uint8_t td_mod_state;
 void td_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_mod_state = get_mods();
+    td_state = current_dance(state);
     if (td_mod_state == 0) {
-        td_state = current_dance(state);
         switch (td_state) {
             case SINGLE_TAP: register_code16(C(KC_V)); return;
             case SINGLE_HOLD:     tap_code16(C(KC_C)); return;
