@@ -1,6 +1,6 @@
 /* Key Override */
 #pragma once
-const key_override_t circ_override = ko_make_basic(MOD_MASK_SHIFT, KC_CIRCUMFLEX, G(KC_S));       // ^
+const key_override_t circ_override = ko_make_basic(MOD_MASK_SHIFT, KC_CIRCUMFLEX, G(KC_S));            // ^
 const key_override_t at_override   = ko_make_basic(MOD_MASK_SHIFT, KC_AT, KC_CALCULATOR);              // @  
 const key_override_t hash_override = ko_make_basic(MOD_MASK_SHIFT, KC_HASH, KC_MEDIA_PREV_TRACK);      // #
 const key_override_t dlr_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOLLAR, KC_MEDIA_PLAY_PAUSE);    // $
@@ -13,7 +13,6 @@ const key_override_t tild_override = ko_make_basic(MOD_MASK_SHIFT, KC_TILDE, KC_
 
 const key_override_t slsh_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLASH, KC_PERCENT);              // /%
 
-const key_override_t ins_override = ko_make_basic(MOD_MASK_SHIFT, KC_INSERT, C(KC_X));                // Insert + Cut
 const key_override_t comm_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMMA, KC_SCOLON);               // ,;
 const key_override_t dot_override  = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COLON);                  // .:
 const key_override_t labk_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_ANGLE_BRACKET, KC_LEFT_PAREN);
@@ -31,7 +30,6 @@ const key_override_t **key_overrides = (const key_override_t *[]) {
     &grv_override ,
     &tild_override,
     &slsh_override,
-    &ins_override,
     &comm_override,
     &dot_override ,
     &labk_override,

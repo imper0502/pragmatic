@@ -255,27 +255,39 @@ void td_alt_layers_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+uint8_t mod_state;
 void td_copy_paste_finished(qk_tap_dance_state_t *state, void *user_data) {
-    if (get_mods() == 0) {
+    mod_state = get_mods();
+    if (mod_state == 0) {
         td_state = current_dance(state);
         switch (td_state) {
             case SINGLE_TAP: register_code16(C(KC_V)); return;
-            case DUAL_TAP:          layer_invert(_FN); return;
             case SINGLE_HOLD:     tap_code16(C(KC_C)); return;
             case TAP_THEN_HOLD:   tap_code16(C(KC_X)); return;
+            case DUAL_TAP:          layer_invert(_FN); return;
             default:                  layer_move(_BS); return;
+        }
+    } else if (mod_state & MOD_MASK_GUI) {
+        switch (td_state) {
+            case SINGLE_TAP: register_code16(S(KC_S)); return;
+            default:     /* This line is necessary. */ return;
         }
     }
     register_code(KC_INS);
 }
 
 void td_copy_paste_reset(qk_tap_dance_state_t *state, void *user_data) {
-    if (get_mods() == 0) {
+    if (mod_state == 0) {
         switch (td_state) {
             case SINGLE_TAP: unregister_code16(C(KC_V)); return;
             case SINGLE_HOLD:
             case TAP_THEN_HOLD:     tap_code16(C(KC_V)); return;
             default:       /* This line is necessary. */ return;
+        }
+    } else if (mod_state & MOD_MASK_GUI)  {
+        switch (td_state) {
+            case SINGLE_TAP: unregister_code16(S(KC_S)); return;
+            default:     /* This line is necessary. */   return;
         }
     }
     unregister_code(KC_INS);
