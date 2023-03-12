@@ -36,18 +36,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BS] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         INS_PLS, KC_CIRC, KC_AT  , KC_HASH, KC_DLR , KC_AMPR,     KC_ASTR, KC_QUES, KC_EXLM, KC_GRV , KC_TILD, KC_DEL ,
-        KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,     KC_J   , KC_L   , KC_U   , KC_Y   , KC_SLSH, KC_BSLS,
+        KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,     KC_J   , KC_L   , KC_U   , KC_Y   , KC_MINS, KC_EQL ,
         GUI_ESC, KC_A   , KC_R   , KC_S   , KC_T   , KC_G   ,     KC_M   , KC_N   , KC_E   , KC_I   , KC_O   , KC_BSPC,
         KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   ,     KC_K   , KC_H   , KC_COMM, KC_DOT , KC_QUOT, KC_RSFT,
-        XXXXXXX, XXXXXXX, XXXXXXX, ALT_PLS, KC_LCTL, OS_LSFT,     FN_SPC , FN_MINS, FN_EQL , XXXXXXX, XXXXXXX, XXXXXXX 
+        XXXXXXX, XXXXXXX, XXXXXXX, FN_BSLS, FN_SLSH, FN_SPC ,     OS_RSFT, KC_LCTL, ALT_PLS, XXXXXXX, XXXXXXX, XXXXXXX 
     ),
     [_FN] = LAYOUT(
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,     KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
-        KC_TAB , KC_PPLS, KC_7   , KC_8   , KC_9   , KC_PAST,     _______, KC_HOME, KC_UP  , KC_END , KC_PGUP, _______,
-        _______, KC_PMNS, KC_4   , KC_5   , KC_6   , KC_PSLS,     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______,
-        _______, KC_EQL , KC_1   , KC_2   , KC_3   , KC_PERC,     _______, KC_LBRC, KC_LABK, KC_RABK, KC_RBRC, _______,
-        _______, _______, _______, KC_DOT , KC_0   , KC_ENT ,     TO(_BS), KC_RCTL, KC_RALT, _______, _______, _______
+      TD(TD_F1), KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,     KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
+        KC_PGUP, KC_HOME, KC_UP  , KC_END , KC_LBRC, KC_RBRC,     KC_PAST, KC_7   , KC_8   , KC_9   , KC_PPLS, KC_TAB ,
+        KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_LABK, KC_RABK,     KC_PSLS, KC_4   , KC_5   , KC_6   , KC_PMNS, _______,
+        _______, _______, _______, _______, _______, _______,     KC_PERC, KC_1   , KC_2   , KC_3   , KC_EQL , _______,
+        XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT, KC_LCTL, TO(_BS),     ST_ENT , KC_0   , KC_DOT , XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
 
@@ -183,6 +183,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
         break;
+    case FN_SLSH:
+        if (!record->tap.count) {
+            if (record->event.pressed) {
+                register_mods(MOD_LCTL);
+                layer_on(_FN);
+            } else {
+                layer_off(_FN);
+                unregister_mods(MOD_LCTL);
+            }
+            return false;
+        } else {
+            if (get_mods() & MOD_MASK_SHIFT) {
+                if (record->event.pressed) {
+                    register_code16(KC_PERCENT);
+                } else {
+                    unregister_code16(KC_PERCENT);
+                }
+                return false;
+            } else if (get_oneshot_mods() & MOD_MASK_SHIFT) {
+                if (record->event.pressed) {
+                    clear_oneshot_mods();
+                    tap_code16(KC_PERCENT);
+                }
+                return false;
+            }
+        }
+        break;
+    case FN_BSLS:
+        if (!record->tap.count) {
+            if (record->event.pressed) {
+                register_mods(MOD_LALT);
+                layer_on(_FN);
+            } else {
+                layer_off(_FN);
+                unregister_mods(MOD_LALT);
+            }
+            return false;
+        }
+        break;
     }
     return true;
 }
@@ -261,4 +300,20 @@ void td_insert_plus_reset(qk_tap_dance_state_t *state, void *user_data) {
         return; 
     }
     unregister_code(KC_INS);
+}
+
+void td_f1_finished(qk_tap_dance_state_t *state, void *user_data) {
+    td_state = current_dance(state);
+    switch (td_state) {
+        case SINGLE_TAP: register_code(KC_F1); return;
+        case DUAL_TAP:      layer_invert(_FN); return;
+        default:              layer_move(_BS); return;
+    }
+}
+
+void td_f1_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (td_state) {
+        case SINGLE_TAP: unregister_code(KC_F1); return;
+        default:   /* This line is necessary. */ return;
+    }
 }

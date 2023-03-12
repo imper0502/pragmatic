@@ -4,6 +4,7 @@
 enum tap_dance_names {
     ALT_PLUS,
     INSERT_PLUS,
+    TD_F1,
 };
 
 /* Tap Dance */
@@ -29,9 +30,11 @@ void td_alt_plus_finished(qk_tap_dance_state_t *state, void *user_data);
 void td_alt_plus_reset(qk_tap_dance_state_t *state, void *user_data);
 void td_insert_plus_finished(qk_tap_dance_state_t *state, void *user_data);
 void td_insert_plus_reset(qk_tap_dance_state_t *state, void *user_data);
+void td_f1_finished(qk_tap_dance_state_t *state, void *user_data);
+void td_f1_reset(qk_tap_dance_state_t *state, void *user_data);
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [ALT_PLUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_alt_plus_finished, td_alt_plus_reset),
-    [INSERT_PLUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_insert_plus_finished, td_insert_plus_reset)
+    [INSERT_PLUS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_insert_plus_finished, td_insert_plus_reset),
+    [TD_F1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_f1_finished, td_f1_reset)
 };
-

@@ -15,3 +15,5 @@
 #define FN_SPC  LT(_FN, KC_SPC)
 #define FN_MINS LT(0, KC_MINS)
 #define FN_EQL  LT(0, KC_EQL)
+#define FN_SLSH LT(0, KC_SLSH)
+#define FN_BSLS LT(0, KC_BSLS)
